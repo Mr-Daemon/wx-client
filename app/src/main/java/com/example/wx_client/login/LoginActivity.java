@@ -11,6 +11,7 @@ import com.example.wx_client.BaseActivity;
 import com.example.wx_client.R;
 import com.example.wx_client.main.MainActivity;
 import com.example.wx_client.network.ResponseBody;
+import com.example.wx_client.service.ListenService;
 import com.google.gson.Gson;
 
 public class LoginActivity extends BaseActivity implements Login.View {
@@ -74,6 +75,11 @@ public class LoginActivity extends BaseActivity implements Login.View {
             intent.putExtra("username", username);
             intent.putExtra("token", body.getToken());
             startActivity(intent);
+            Intent intent1 = new Intent(this, ListenService.class);
+            intent1.putExtra("username", username);
+            intent1.putExtra("token", body.getToken());
+            startService(intent1);
+            finish();
         }
     }
 }
