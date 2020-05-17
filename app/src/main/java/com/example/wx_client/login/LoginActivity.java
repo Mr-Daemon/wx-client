@@ -1,5 +1,6 @@
 package com.example.wx_client.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.wx_client.BaseActivity;
 import com.example.wx_client.R;
+import com.example.wx_client.main.MainActivity;
 import com.example.wx_client.network.ResponseBody;
 import com.google.gson.Gson;
 
@@ -19,7 +21,7 @@ public class LoginActivity extends BaseActivity implements Login.View {
     private CheckBox checkBox2;
     private Boolean box1 = false;
     private Boolean box2 = false;
-    private String phoneNum = "";
+    private String username = "";
     private String password = "";
     private final String NULL_PASSWORD = "Your password can't be Null.";
     private final String NULL_PHONE = "Your phone number can't be Null.";
@@ -44,14 +46,14 @@ public class LoginActivity extends BaseActivity implements Login.View {
 
     private void setBoxListener() {
         button.setOnClickListener(v -> {
-            phoneNum = editText1.getText().toString();
+            username = editText1.getText().toString();
             password = editText2.getText().toString();
-            if (phoneNum.equals("")) {
+            if (username.equals("")) {
                 Toast.makeText(this, NULL_PHONE, Toast.LENGTH_SHORT).show();
             } else if (password.equals("")) {
                 Toast.makeText(this, NULL_PASSWORD, Toast.LENGTH_SHORT).show();
             } else {
-                new LoginPresenter(this).login(phoneNum, password);
+                new LoginPresenter(this).login(username, password);
             }
         });
     }
@@ -67,6 +69,11 @@ public class LoginActivity extends BaseActivity implements Login.View {
     @Override
     public void startMain(ResponseBody body) {
         Toast.makeText(this, new Gson().toJson(body), Toast.LENGTH_SHORT).show();
-
+        if (body.getCode() == 0) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("username", username);
+            intent.putExtra("token", body.getToken());
+            startActivity(intent);
+        }
     }
 }

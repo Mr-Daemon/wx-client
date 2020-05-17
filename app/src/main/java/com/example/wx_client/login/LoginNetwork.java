@@ -8,10 +8,10 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public class LoginNetwork extends BaseNetwork {
+class LoginNetwork extends BaseNetwork {
     private static Login login = retrofit.create(Login.class);
 
-    public static Call<ResponseBody> loginCall(RequestBody body) {
+    static Call<ResponseBody> loginCall(RequestBody body) {
         return login.login(body);
     }
 

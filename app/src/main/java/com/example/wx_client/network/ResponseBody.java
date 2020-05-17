@@ -14,7 +14,7 @@ public class ResponseBody {
     @SerializedName("msg")
     private String mMsg;
     @SerializedName("token")
-    private Long mToken;
+    private int mToken;
     @SerializedName("type")
     private String mType;
 
@@ -42,11 +42,11 @@ public class ResponseBody {
         mMsg = msg;
     }
 
-    public Long getToken() {
+    public int getToken() {
         return mToken;
     }
 
-    public void setToken(Long token) {
+    public void setToken(int token) {
         mToken = token;
     }
 

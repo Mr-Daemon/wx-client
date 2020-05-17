@@ -12,6 +12,7 @@ import retrofit2.Response;
 
 public class LoginPresenter implements Login.Presenter {
     private Login.View view;
+    private static final String TAG = "LoginPresenter";
 
     LoginPresenter(Login.View view) {
         this.view = view;
@@ -22,6 +23,7 @@ public class LoginPresenter implements Login.Presenter {
         LoginNetwork.RequestBody body = new LoginNetwork.RequestBody();
         body.setUsername(username);
         body.setPassword(password);
+        Log.d(TAG, "login() called with: username = [" + username + "], password = [" + password + "]");
         LoginNetwork.loginCall(body).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -30,7 +32,7 @@ public class LoginPresenter implements Login.Presenter {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Log.e(TAG, "onFailure: error", t);
             }
         });
 
