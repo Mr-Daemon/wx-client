@@ -2,6 +2,7 @@
   <dictionary name="cyb12">
     <words>
       <w>friendname</w>
+      <w>sqlite</w>
     </words>
   </dictionary>
 </component>

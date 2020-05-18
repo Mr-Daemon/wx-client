@@ -21,11 +21,13 @@ public class MainAdapter extends RecyclerView.Adapter {
     private ArrayList<String> friendList = new ArrayList<>();
     private Context context;
     private String username;
+    private int token;
     private static final String TAG = "MainAdapter";
 
-    public MainAdapter(Context context, String username, List<String> list) {
+    public MainAdapter(Context context, String username, int token, List<String> list) {
         this.context = context;
         this.username = username;
+        this.token = token;
         friendList.addAll(list);
     }
 
@@ -45,6 +47,7 @@ public class MainAdapter extends RecyclerView.Adapter {
             Intent intent = new Intent(context, ChatActivity.class);
             intent.putExtra("username", username);
             intent.putExtra("friendname", friendList.get(position));
+            intent.putExtra("token", token);
             context.startActivity(intent);
         });
     }

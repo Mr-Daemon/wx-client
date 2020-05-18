@@ -8,10 +8,10 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public class ChatNetwork extends BaseNetwork {
+class ChatNetwork extends BaseNetwork {
     private static SendMsg send = retrofit.create(SendMsg.class);
 
-    Call<ResponseBody> sendMsg(RequestBody body) {
+    static Call<ResponseBody> sendMsg(RequestBody body) {
         return send.sendMsg(body);
     }
 
@@ -24,7 +24,7 @@ public class ChatNetwork extends BaseNetwork {
         @SerializedName("msg")
         private String mMsg;
         @SerializedName("token")
-        private Long mToken;
+        private int mToken;
         @SerializedName("username")
         private String mUsername;
         @SerializedName("who")
@@ -38,11 +38,11 @@ public class ChatNetwork extends BaseNetwork {
             mMsg = msg;
         }
 
-        public Long getToken() {
+        public int getToken() {
             return mToken;
         }
 
-        public void setToken(Long token) {
+        public void setToken(int token) {
             mToken = token;
         }
 

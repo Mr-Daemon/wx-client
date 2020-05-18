@@ -4,9 +4,11 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.wx_client.database.DataBaseHandler;
 import com.example.wx_client.main.OfflineNetwork;
 import com.example.wx_client.network.ResponseBody;
 
@@ -16,6 +18,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,6 +83,12 @@ public class ListenService extends Service {
                     content.append(line).append("\n");
                 }
                 Log.d(TAG, "acceptData() called: data = [" + content.toString() + "]");
+                List<String> rList = new ArrayList<>();
+                Matcher matcher = Pattern.compile("\"(.*?)\"").matcher(content);
+                while (matcher.find()) {
+                    rList.add(matcher.group(1));
+                }
+                DataBaseHandler.insertRecord(username, rList.get(1), "[" + rList.get(1) + "]: " + rList.get(3));
             } catch (IOException e) {
                 Log.e(TAG, "acceptData", e);
             }

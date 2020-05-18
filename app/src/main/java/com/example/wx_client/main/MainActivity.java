@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements Main.View {
 
     @Override
     public void initRV(List<String> list) {
-        MainAdapter adapter = new MainAdapter(this, username, list);
+        MainAdapter adapter = new MainAdapter(this, username, token, list);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

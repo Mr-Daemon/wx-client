@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BaseNetwork {
-    private final static String BASE_URL = "http://192.168.31.27:1234/";
+    private final static String BASE_URL = "http://192.168.1.6:1234/";
     protected static Retrofit retrofit;
 
     static {
