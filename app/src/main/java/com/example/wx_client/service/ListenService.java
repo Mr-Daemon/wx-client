@@ -4,13 +4,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.example.wx_client.database.DataBaseHandler;
-import com.example.wx_client.main.OfflineNetwork;
-import com.example.wx_client.network.ResponseBody;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -18,20 +15,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class ListenService extends Service {
     private static final String TAG = "ListenService";
-    private static ServerSocket socket;
     public static ListenService instance;
-    private String username;
+    private static ServerSocket socket;
 
     static {
         try {
@@ -41,6 +34,7 @@ public class ListenService extends Service {
         }
     }
 
+    private String username;
 
     @Nullable
     @Override
@@ -88,7 +82,9 @@ public class ListenService extends Service {
                 while (matcher.find()) {
                     rList.add(matcher.group(1));
                 }
-                DataBaseHandler.insertRecord(username, rList.get(1), "[" + rList.get(1) + "]: " + rList.get(3));
+                String msg = new String(rList.get(3).getBytes(), StandardCharsets.UTF_8);
+                Log.d(TAG, "msg: " + msg);
+                DataBaseHandler.insertRecord(username, rList.get(1), "[" + rList.get(1) + "]: " + msg);
             } catch (IOException e) {
                 Log.e(TAG, "acceptData", e);
             }

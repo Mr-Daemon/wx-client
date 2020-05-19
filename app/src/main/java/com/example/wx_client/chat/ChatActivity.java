@@ -16,6 +16,9 @@ import com.example.wx_client.R;
 import com.example.wx_client.database.DataBaseHandler;
 import com.example.wx_client.network.ResponseBody;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +57,7 @@ public class ChatActivity extends BaseActivity {
         sendBtn.setOnClickListener(v -> {
             String msg = editText.getText().toString();
             ChatNetwork.RequestBody body = new ChatNetwork.RequestBody();
-            body.setMsg(msg);
+            body.setMsg(new String(msg.getBytes(), StandardCharsets.UTF_8));
             body.setUsername(username);
             body.setWho(friendname);
             body.setToken(token);
