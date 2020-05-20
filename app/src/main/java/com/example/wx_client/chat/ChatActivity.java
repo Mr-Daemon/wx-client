@@ -66,7 +66,7 @@ public class ChatActivity extends BaseActivity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.body().getCode() == 0) {
                         String message = "[" + username + "]: " + msg;
-                        adapter.addText(message);
+//                        adapter.addText(message);
                         DataBaseHandler.insertRecord(username, friendname, message);
                     } else {
                         Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
